@@ -13,27 +13,6 @@ twitter_validator = RegexValidator(r'^$|^@[A-Za-z0-9_]+$', 'Twitter handle must 
 nonnegative_validator = MinValueValidator(0, 'Value must not be negative.')
 country_code_validator = RegexValidator(r'^[A-Z]{2}$', 'Country code must be two upper-case letters, e.g. AU')
 
-class Organisation(models.Model):
-    class OrganisationType(models.IntegerChoices):
-        NONE = 0, '-'
-        HEALTH_EDUCATION_RESEARCH = 1, 'Health/Education/Research'
-        FUNDING_AGENCY = 2, 'Funding Agency'
-        COMMUNITY = 3, 'Community'
-        SERVICE_PROVIDER = 4, 'Service Provider'
-
-    name = models.CharField('name', max_length=255)
-    organisation_type = models.IntegerField('type', choices=OrganisationType.choices, default=OrganisationType.NONE)
-    primary_contact = models.ForeignKey('ncard_app.Person', on_delete=models.RESTRICT, null=True, blank=True, related_name='organisations_primary_contact')
-    phone = models.CharField('phone', max_length=25, null=True, blank=True, validators=[phone_validator])
-    website = models.URLField('website', null=True, blank=True)
-    twitter_handle = models.CharField('Twitter Handle', max_length=16, null=True, blank=True, validators=[twitter_validator])
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
-        db_table = "Organisation"
 
 class Country(models.Model):
     code = models.CharField('country code', max_length=2, primary_key=True, validators=[country_code_validator])
@@ -46,6 +25,35 @@ class Country(models.Model):
         ordering = ['code']
         verbose_name_plural = 'countries'
         db_table = "Country"
+
+class Organisation(models.Model):
+    class OrganisationType(models.IntegerChoices):
+        NONE = 0, '-'
+        HEALTH_EDUCATION_RESEARCH = 1, 'Health/Education/Research'
+        FUNDING_AGENCY = 2, 'Funding Agency'
+        COMMUNITY = 3, 'Community'
+        SERVICE_PROVIDER = 4, 'Service Provider'
+
+    name = models.CharField('name', max_length=255)
+    organisation_type = models.IntegerField('type', choices=OrganisationType.choices, default=OrganisationType.NONE)
+    org_line1 = models.CharField('Line 1', max_length=64, null=True, blank=True)
+    org_line2 = models.CharField('Line 2', max_length=64, null=True,  blank=True)
+    org_line3 = models.CharField('Line 3', max_length=64, null=True, blank=True)
+    org_suburb = models.CharField('Suburb',max_length=32, null=True, blank=True)
+    org_state = models.CharField('State (abbrev.)', max_length=3, null=True, blank=True)
+    org_postcode = models.CharField('Postcode', max_length=20, null=True, blank=True)
+    org_country = models.ForeignKey(Country, on_delete=models.RESTRICT, to_field='code', default='AU', related_name='+', verbose_name='Country')
+    primary_contact = models.ForeignKey('ncard_app.Person', on_delete=models.RESTRICT, null=True, blank=True, related_name='organisations_primary_contact')
+    phone = models.CharField('phone', max_length=25, null=True, blank=True, validators=[phone_validator])
+    website = models.URLField('website', null=True, blank=True)
+    twitter_handle = models.CharField('Twitter Handle', max_length=16, null=True, blank=True, validators=[twitter_validator])
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+        db_table = "Organisation"
 
 class Person(models.Model):
     class NCARDRelation(models.IntegerChoices):
@@ -63,6 +71,10 @@ class Person(models.Model):
         STUDENT = 2, 'Yes - student'
 
     class Clinician(models.IntegerChoices):
+        NO = 0, 'No'
+        YES = 1, 'Yes'
+
+    class Active(models.IntegerChoices):
         NO = 0, 'No'
         YES = 1, 'Yes'
 
@@ -111,6 +123,7 @@ class Person(models.Model):
     home_postcode = models.CharField('Postcode', max_length=20, null=True, blank=True)
     home_country = models.ForeignKey(Country, on_delete=models.RESTRICT, to_field='code', default='AU', related_name='+', verbose_name='Country')
     notes = models.TextField(null=True, blank=True)
+    active = models.IntegerField('Active', choices=Active.choices, default=Active.YES)
 
 
     @property

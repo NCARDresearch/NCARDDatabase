@@ -23,7 +23,7 @@ admin.site.register(models.Grant, GrantAdmin)
 
 class OrganisationAdmin(ImportExportModelAdmin):
     resource_class = OrganisationResource
-    list_display = ("name","primary_contact","phone","website","twitter_handle","organisation_type")
+    list_display = ("name","primary_contact","org_line1","org_line2","org_line3","org_suburb","org_state","org_postcode","org_country","phone","website","twitter_handle","organisation_type")
     pass
 admin.site.register(models.Organisation, OrganisationAdmin)
 
@@ -57,6 +57,6 @@ class ProjectAdmin(ImportExportModelAdmin):
 admin.site.register(models.Project, ProjectAdmin)
 
 class PersonAdmin(ImportExportModelAdmin):
-    list_displays = ('title','given_name','middle_name','surname','surname_first','email','email2','phone_office','phone_mobile','phone_home','cre_role','ncard_relation','project','display_on_website','profile_url','orcid_id','scopus_id','wos_researcher_id','google_scholar','researchgate','loop_profile','linkedin','twitter','location','organisation_primary','organisation_other','clinician','research_focus','work_line1','work_line2','work_line3','work_suburb','work_state','work_postcode','work_country','home_line1','home_line2','home_line3','home_suburb','home_state', 'home_postcode', 'home_country', 'notes')
+    list_displays = ('title','given_name','middle_name','surname','surname_first','email','email2','phone_office','phone_mobile','phone_home','active','cre_role','ncard_relation','project','display_on_website','profile_url','orcid_id','scopus_id','wos_researcher_id','google_scholar','researchgate','loop_profile','linkedin','twitter','location','organisation_primary','organisation_other','clinician','research_focus','work_line1','work_line2','work_line3','work_suburb','work_state','work_postcode','work_country','home_line1','home_line2','home_line3','home_suburb','home_state', 'home_postcode', 'home_country', 'notes')
     pass
 admin.site.register(models.Person, PersonAdmin)
