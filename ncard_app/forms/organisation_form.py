@@ -20,6 +20,15 @@ class OrganisationForm(ModelForm):
                 Column('name', css_class='col-md-9 mb-0'),
                 Column('organisation_type', css_class='col-md-3 mb-0'),
             ),
+            Row('org_line1'),
+            Row('org_line2'),
+            Row('org_line3'),
+            Row(
+                Column('org_suburb', css_class='col-md-3 mb-0'),
+                Column('org_state', css_class='col-md-3 mb-0'),
+                Column('org_postcode', css_class='col-md-3 mb-0'),
+                Column('org_country', css_class='col-md-3 mb-0'),
+            ),
             Row(Field('primary_contact', css_class='selectpicker form-control row mb-0', data_live_search='true')),
             Row(
                 Column('phone', css_class='col-md-3 mb-0'),

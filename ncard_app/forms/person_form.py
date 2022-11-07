@@ -39,6 +39,7 @@ class PersonForm(ModelForm):
                 
                 Tab('NCARD Info',
                     HTML("<br>"),
+                    Row('active'),
                     Row(
                         Column('cre_role', css_class='col-md-4 mb-0'),
                         Column('ncard_relation', css_class='col-md-4 mb-0'),
