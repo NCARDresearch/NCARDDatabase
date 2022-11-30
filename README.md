@@ -1,4 +1,5 @@
-# NCARDDatabase Setup
+# NCARDDatabase Setup 
+# This is a test, delete later
 
  1. Install Python, Docker Desktop and Docker Compose (which might be included).
  2. Clone this repo.
