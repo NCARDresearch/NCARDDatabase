@@ -87,7 +87,7 @@ class FilteredGrantListView(ExportMixin,SingleTableMixin,FilterView):
     filter = None
     table_class = tables_class.GrantTable
     model = models.Grant
-    template_name = "tables/grants.html"
+    template_name = "tables/grants-2.html"
     filterset_class = filters.GrantFilter
     export_name = "Grant"
     paginate_by = 10
