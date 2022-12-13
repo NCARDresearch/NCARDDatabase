@@ -285,5 +285,6 @@ class Students(models.Model):
         return self.student_name
     
     class Meta:
+        verbose_name_plural = 'Students'
         ordering = ['student_name']
         db_table = "Student"
