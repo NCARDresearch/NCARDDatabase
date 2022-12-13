@@ -95,7 +95,7 @@ class Person(models.Model):
     organisation_primary = models.ForeignKey(Organisation, on_delete=models.SET_NULL, null=True, blank=True, related_name='contacts_primary_org', verbose_name='Organisation (Primary)')
     organisation_other = models.ForeignKey(Organisation, on_delete=models.SET_NULL, null=True, blank=True, related_name='contacts_other_org', verbose_name='Organisation (Other)')
     clinician = models.IntegerField(choices=Clinician.choices, default=Clinician.NO)
-    research_focus = models.CharField('Research Focus',max_length=255, blank=True)
+    research_focus = models.CharField('Research Focus',max_length=255, null=True, blank=True)
     work_line1 = models.CharField('Line 1', max_length=64, null=True, blank=True)
     work_line2 = models.CharField('Line 2', max_length=64, null=True,  blank=True)
     work_line3 = models.CharField('Line 3', max_length=64, null=True, blank=True)
