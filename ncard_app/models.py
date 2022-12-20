@@ -287,3 +287,4 @@ class Students(models.Model):
     class Meta:
         ordering = ['student_name']
         db_table = "Student"
+        verbose_name_plural = 'Students'
