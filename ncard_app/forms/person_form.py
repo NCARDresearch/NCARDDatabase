@@ -26,7 +26,6 @@ class PersonForm(ModelForm):
                         Column('middle_name', css_class='col-md-3 mb-0'),
                         Column('surname', css_class='col-md-4 mb-0'),
                     ),
-                    Row('active'),
                     Row(
                         Column('email'),
                         Column('email2'),
