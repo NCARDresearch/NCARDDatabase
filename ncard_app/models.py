@@ -71,7 +71,7 @@ class Person(models.Model):
     middle_name = models.CharField('Middle Name',max_length=64, blank=True)
     surname = models.CharField('Last Name', max_length=64)
     surname_first = models.BooleanField(default=False)
-    active = models.BooleanField('Active', default=True)
+    active = models.BooleanField('Active', default=False)
     auth_user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='person')
     email = models.EmailField('Primary Email', null=True, blank=True)
     email2 = models.EmailField('Secondary Email', null=True,  blank=True)
@@ -288,7 +288,7 @@ class Students(models.Model):
     year_end = models.PositiveSmallIntegerField('Year End',blank=True,null=True)
     scholarship = models.OneToOneField(Award, on_delete=models.SET_NULL, null=True, blank=True, related_name='award')
     notes = models.TextField('notes', blank=True)
-    active_student = models.BooleanField('Active', default=True)
+    active_student = models.BooleanField('Active',default=False)
 
     def __str__(self):
         return self.student_name
