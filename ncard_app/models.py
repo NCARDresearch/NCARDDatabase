@@ -71,6 +71,7 @@ class Person(models.Model):
     middle_name = models.CharField('Middle Name',max_length=64, blank=True)
     surname = models.CharField('Last Name', max_length=64)
     surname_first = models.BooleanField(default=False)
+    active = models.BooleanField('Active', default=True)
     auth_user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='person')
     email = models.EmailField('Primary Email', null=True, blank=True)
     email2 = models.EmailField('Secondary Email', null=True,  blank=True)
@@ -195,7 +196,7 @@ class Event(models.Model):
     location = models.CharField('location', max_length=255, blank=True)
     lead_organisation = models.ForeignKey(Organisation, on_delete=models.SET_NULL, blank=True, null=True, related_name='events')
     lead_contacts = models.ManyToManyField(Person, null=True, blank=True, related_name='events')
-    number_attendees = models.TextField('number of Attendees', blank=True)
+    number_attendees = models.CharField('number of Attendees', blank=True, max_length=255)
     participants = models.TextField('participants', blank=True)
     detail = models.TextField('details', blank=True)
 
@@ -270,8 +271,14 @@ class GrantInvestigator(models.Model):
 
 class Students(models.Model): 
     class StudentTypes(models.IntegerChoices):
-        HONS = 1, 'Honours'
-        PHD = 2, 'PhD'
+        PHD = 1, 'PhD'
+        HONS = 2, 'Honours'
+        MAST = 3, 'Masters'
+        CRF = 4, 'Clinical Research Fellow'
+        MDF = 5, 'Medical Fellow'
+        MBBS = 6, 'MBBS'
+        OTH = 7, 'Other (please specify)'
+        
 
     student_name = models.OneToOneField(Person, on_delete=models.CASCADE, related_name = 'person')
     student_type = models.IntegerField('Student Type', choices= StudentTypes.choices)
@@ -280,6 +287,8 @@ class Students(models.Model):
     year_start = models.PositiveSmallIntegerField('Year Start',blank=True,null=True)
     year_end = models.PositiveSmallIntegerField('Year End',blank=True,null=True)
     scholarship = models.OneToOneField(Award, on_delete=models.SET_NULL, null=True, blank=True, related_name='award')
+    notes = models.TextField('notes', blank=True)
+    active_student = models.BooleanField('Active', default=True)
 
     def __str__(self):
         return self.student_name

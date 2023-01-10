@@ -23,10 +23,12 @@ class StudentForm(ModelForm):
                 Column('student_type', css_class='col-md-3 mb-0'),
             ),            
             Row(Field('supervisor', css_class='selectpicker form-control row', data_live_search='true')),
+            Row('active_student'),
             Row('title_topic'),
             Row(
                 Column('year_start', css_class='col-md-2 mb-0'),
                 Column('year_end', css_class='col-md-2 mb-0'),
                 Column(Field('scholarship', css_class='selectpicker form-control col-md-8 mb-0', data_live_search='true')),
             ),
+            Row('notes'),
         )
