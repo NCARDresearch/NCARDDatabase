@@ -291,7 +291,7 @@ class Students(models.Model):
     notes = models.TextField('notes', blank=True)
 
     def __str__(self):
-        return self.student_name
+        return str(self.student_name)
     
     class Meta:
         verbose_name_plural = 'Students'
