@@ -129,7 +129,7 @@ class Person(models.Model):
         return reverse('edit-person', args=[self.id])
 
     class Meta:
-        verbose_name_plural = 'people'
+        verbose_name_plural = 'People'
         ordering = ['surname', 'given_name', 'id']
         indexes = [
             models.Index(fields=['surname']),
@@ -297,4 +297,3 @@ class Students(models.Model):
         verbose_name_plural = 'Students'
         ordering = ['student_name']
         db_table = "Student"
-        verbose_name_plural = 'Students'

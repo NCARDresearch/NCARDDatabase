@@ -17,37 +17,35 @@ class GrantAdmin(ImportExportModelAdmin):
     inlines = [
         GrantInvestigatorInline
     ]
-    exclude = ['investigators']
-
+    exclude = ['investigators']  
 admin.site.register(models.Grant, GrantAdmin)
 
 class OrganisationAdmin(ImportExportModelAdmin):
-    resource_class = OrganisationResource
+    resource_classes = OrganisationResource
     list_display = ("name","primary_contact","phone","website","twitter_handle","organisation_type")
     pass
 admin.site.register(models.Organisation, OrganisationAdmin)
 
 class EventAdmin(ImportExportModelAdmin):
     list_display = ("event_type", "date", "number_attendees", "title", "detail", "lead_organisation", "location")
-    resource_class = EventResource
+    resource_classes = EventResource
     pass
 admin.site.register(models.Event, EventAdmin)
 
 class PublicationAdmin(ImportExportModelAdmin):
     list_display = ("title","publication_type","ncard_publication","year","journal","journal_ISSN","volume","page_start","page_end","open_access_status","doi","electronic_ISBN","print_ISBN","abstract","citation","source_ID")
-    resource_class = PublicationResource
+    resource_classes = PublicationResource
     pass
 admin.site.register(models.Publication, PublicationAdmin)
 
 class StudentsAdmin(ImportExportModelAdmin):
     list_displays = ('student_name','student_type','supervisor','active_student','title_topic','year_start','year_end','scholarship','notes')
     pass
-    
 admin.site.register(models.Students, StudentsAdmin)
 
 class AwardAdmin(ImportExportModelAdmin):
     list_displays = ( 'award_type', 'agency','name', 'recipients', 'status', 'detail', 'year', 'no_year', 'notes', 'link')
-    resource_class = AwardResource
+    resource_classes = AwardResource
     pass
 admin.site.register(models.Award, AwardAdmin)
 
