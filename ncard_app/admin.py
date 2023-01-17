@@ -14,7 +14,7 @@ class GrantInvestigatorInline(admin.TabularInline):
     extra = 1
 
 class GrantAdmin(ImportExportModelAdmin):
-    list_display = ("title", "reference", "project")
+    list_display = ("title", "grant_reference","roap_reference",'agency',"project",'status','year_submitted', 'year_start','year_end','bu_no', 'pg_no', 'total_request','total_award')
     inlines = [
         GrantInvestigatorInline
     ]

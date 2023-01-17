@@ -164,7 +164,6 @@ class Award(models.Model):
         PRIZE = 1, 'Prize'
         SCHOLARSHIP = 2, 'Scholarship'
         AWARD = 3, 'Award'
-        GRANT = 4, 'Grant'
 
     class AwardStatus(models.IntegerChoices):
         AWARDEE = 1, 'Awardee'
@@ -245,10 +244,26 @@ class Publication(models.Model):
         db_table = "Publication"
 
 class Grant(models.Model):
+    class GrantStatus(models.IntegerChoices):
+        SUBMITTED = 1, 'Application submitted'
+        UNSUCCESSFUL = 2, 'Grant unsuccessful'
+        CURRENT = 3, 'Current'
+        COMPLETE = 4, 'Complete'        
+
     title = models.CharField(max_length=255)
-    reference = models.CharField(max_length=64, blank=True)
+    grant_reference = models.CharField('Grant Reference',max_length=64, blank=True)
+    roap_reference = models.CharField('ROAP Reference',max_length=64, blank=True)
+    agency = models.ForeignKey(Organisation, on_delete=models.SET_NULL, null=True, blank=True, related_name='grants')
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True, related_name='grants')
     investigators = models.ManyToManyField(Person, through='GrantInvestigator', related_name='grants')
+    year_submitted = models.PositiveSmallIntegerField('Year Submitted', null=True, blank=True)
+    year_start = models.PositiveSmallIntegerField('Year Start', null=True, blank=True)
+    year_end = models.PositiveSmallIntegerField('Year End', null=True, blank=True)
+    bu_no = models.CharField('Business Unit Number',max_length=64, blank=True)
+    pg_no = models.CharField('PG Number',max_length=64, blank=True)
+    total_request = models.DecimalField(verbose_name="Total Amount Requested", max_digits=15, decimal_places=2, null=True, blank=True)
+    total_award = models.DecimalField(verbose_name="Total Amount Awarded", max_digits=15, decimal_places=2, null=True, blank=True)
+    status = models.IntegerField('Status',null=True,blank=True,choices=GrantStatus.choices,default=GrantStatus.SUBMITTED)
 
     def __str__(self):
         name = self.title or 'Grant'

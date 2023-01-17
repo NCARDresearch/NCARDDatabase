@@ -17,7 +17,25 @@ class GrantForm(ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row('title'),
-            Row('reference'),
+            Row(
+                Column('grant_reference', css_class='col-md-4 mb-0'),
+                Column('roap_reference',css_class='col-md-4 mb-0'),
+                ),
+            Row(Field('agency', css_class='selectpicker form-control row', data_live_search='true')),
             Row('project'),
+            Row('status'),
             Row(Field('investigators', css_class='selectpicker form-control row mb-0', data_live_search='true')),
-        )
+            Row(
+                Column('year_submitted', css_class='col-md-2 mb-0'),
+                Column('year_start', css_class='col-md-2 mb-0'),
+                Column('year_end', css_class='col-md-2 mb-0'),
+                ),
+            Row(
+                Column('bu_no', css_class='col-md-3 mb-0'),
+                Column('pg_no', css_class='col-md-3 mb-0'),
+                ),
+            Row(
+                Column('total_request', css_class='col-md-3 mb-0'),
+                Column('total_award', css_class='col-md-3 mb-0'),
+                ),
+            )

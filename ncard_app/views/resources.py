@@ -352,15 +352,45 @@ class PublicationResource(resources.ModelResource):
                         "source_ID")
 
 class GrantResource(resources.ModelResource):
-    reference = fields.Field(
-        attribute='reference',
-        column_name='reference',
+    grant_reference = fields.Field(
+        attribute='grant_reference',
+        column_name='grant_reference',
         widget=CharWidget(),
         default=''
         )
+    roap_reference = fields.Field(
+        attribute='roap_reference',
+        column_name='roap_reference',
+        widget=CharWidget(),
+        default=''
+        )
+    bu_no = fields.Field(
+        attribute='bu_no',
+        column_name='bu_no',
+        widget=CharWidget(),
+        default=''
+        )
+    pg_no = fields.Field(
+        attribute='pg_no',
+        column_name='pg_no',
+        widget=CharWidget(),
+        default=''
+        )
+    total_request = fields.Field(
+        attribute='total_request',
+        column_name='total_request',
+        widget=DecimalWidget(),
+        default=0.0
+        )
+    total_award = fields.Field(
+        attribute='total_award',
+        column_name='total_award',
+        widget=DecimalWidget(),
+        default=0.0
+        )
     class Meta:
         model = Grant
-        export = ('id','title','reference','project','investigators')
+        export_order = ('id',"title", "grant_reference","roap_reference",'agency',"project",'status','investigators','year_submitted', 'year_start','year_end','bu_no', 'pg_no', 'total_request','total_award')
 
 class StudentResource(resources.ModelResource):
     title_topic = fields.Field(

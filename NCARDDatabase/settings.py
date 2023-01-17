@@ -33,7 +33,7 @@ def read_file(path):
 
 SECRET_KEY = read_file(os.path.join(BASE_DIR, 'NCARDDatabase', 'secrets', 'django_secret.txt'))
 
-DEBUG = False
+DEBUG = True
 SECURE_SSL_REDIRECT = False
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
