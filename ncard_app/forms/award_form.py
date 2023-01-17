@@ -35,9 +35,5 @@ class AwardForm(ModelForm):
                     ),
                     Row('detail'),
                 ),
-                Tab('Notes',
-                    HTML("<br>"),
-                    Row('notes')
-                ),
             )
         )

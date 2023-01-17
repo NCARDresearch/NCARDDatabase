@@ -179,7 +179,6 @@ class Award(models.Model):
     detail = models.TextField('details', blank=True)
     year = models.PositiveSmallIntegerField('Year Established', null=True, blank=True)
     no_year = models.DecimalField(verbose_name="Concurrent Years",default=1.0, max_digits=10, decimal_places=1, null=True, blank=True)
-    notes = models.TextField('notes', blank=True)
     link = models.URLField('link', null=True, blank=True)
 
     def __str__(self):
@@ -246,7 +245,7 @@ class Publication(models.Model):
         db_table = "Publication"
 
 class Grant(models.Model):
-    title = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=255)
     reference = models.CharField(max_length=64, blank=True)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True, related_name='grants')
     investigators = models.ManyToManyField(Person, through='GrantInvestigator', related_name='grants')
