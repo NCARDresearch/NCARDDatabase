@@ -80,7 +80,7 @@ class Person(models.Model):
     phone_home = models.CharField('phone (Home)', max_length=25, blank=True, validators=[phone_validator])
     cre_role = models.CharField('CRE Role', max_length=15, blank=True)
     ncard_relation = models.IntegerField('relationship with NCARD', choices=NCARDRelation.choices, default=NCARDRelation.OTHER)
-    project = models.CharField(max_length=50, blank=True)
+    project = models.ManyToManyField('Project', blank=True, related_name='team')
     display_on_website = models.IntegerField(choices=DisplayOnWebsite.choices, default=DisplayOnWebsite.NO)
     profile_url = models.URLField('Profile URL', blank=True)
     orcid_id = models.CharField('ORCID iD', max_length=37, blank=True, validators=[orcid_validator])
@@ -296,12 +296,12 @@ class Students(models.Model):
 
     student_name = models.OneToOneField(Person, on_delete=models.CASCADE, related_name = 'person')
     student_type = models.IntegerField('Student Type', choices= StudentTypes.choices)
-    supervisor = models.ManyToManyField(Person, blank=True)
+    supervisor = models.ManyToManyField(Person, blank=True, related_name='students')
     active_student = models.BooleanField('Active',default=True, null=True)
     title_topic = models.TextField('Title Topic', blank=True)
     year_start = models.PositiveSmallIntegerField('Year Start',blank=True,null=True)
     year_end = models.PositiveSmallIntegerField('Year End',blank=True,null=True)
-    scholarship = models.OneToOneField(Award, on_delete=models.SET_NULL, null=True, blank=True, related_name='award')
+    scholarship = models.ManyToManyField(Award, blank=True, related_name='award')
     notes = models.TextField('notes', blank=True)
 
     def __str__(self):

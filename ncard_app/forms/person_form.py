@@ -43,8 +43,8 @@ class PersonForm(ModelForm):
                     Row(
                         Column('cre_role', css_class='col-md-4 mb-0'),
                         Column('ncard_relation', css_class='col-md-4 mb-0'),
-                        Column('project', css_class='col-md-4 mb-0'),
                     ),
+                    Row(Field('project', css_class='selectpicker form-control row', data_live_search='true')),
                     Row(
                         Column('display_on_website', css_class='col-md-3 mb-0'),
                         Column('profile_url', css_class='col-md-9 mb-0'),

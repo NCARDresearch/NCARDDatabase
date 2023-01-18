@@ -77,8 +77,8 @@ class PersonResource(resources.ModelResource):
     project = fields.Field(
         attribute='project',
         column_name='project',
-        widget=CharWidget(),
-        default=''
+        widget=ManyToManyWidget(Person, 'id'
+                          )
         )
     profile_url = fields.Field(
         attribute='profile_id',
@@ -232,7 +232,7 @@ class AwardResource(resources.ModelResource):
     recipients = fields.Field(
         column_name='recipients',
         attribute='recipients',
-        widget=ManyToManyWidget(Person, field='id'
+        widget=ManyToManyWidget(Person, 'id'
                                 )
         )
     no_year = fields.Field(
@@ -398,6 +398,12 @@ class StudentResource(resources.ModelResource):
         column_name='title_topic',
         widget=CharWidget(),
         default=''
+        )
+    scholarship = fields.Field(
+        attribute='scholarship',
+        column_name='scholarship',
+        widget=ManyToManyWidget(Award, 'id'
+                                )
         )
     notes = fields.Field(
         attribute='notes',
