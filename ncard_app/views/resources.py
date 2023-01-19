@@ -301,6 +301,12 @@ class EventResource(resources.ModelResource):
                         "detail", "lead_organisation", "location")
 
 class PublicationResource(resources.ModelResource):
+    contributors = fields.Field(
+        attribute='contributors',
+        column_name='contributors',
+        widget=ManyToManyWidget(Person, 'id'
+                                )
+        )
     page_start = fields.Field(
         attribute='page_start',
         column_name='page_start',

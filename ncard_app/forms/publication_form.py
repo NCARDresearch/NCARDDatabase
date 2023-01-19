@@ -34,6 +34,7 @@ class PublicationForm(ModelForm):
                     Row(
                         Column('journal_ISSN', css_class='col-md-6 mb-0'),
                         Column('volume', css_class='col-md-2 mb-0'),
+                        Column('issue', css_class='col-md-2 mb-0'),
                         Column('page_start', css_class='col-md-2 mb-0'),
                         Column('page_end', css_class='col-md-2 mb-0'),
                     ),

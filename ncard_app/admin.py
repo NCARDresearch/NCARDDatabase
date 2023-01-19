@@ -35,7 +35,7 @@ class EventAdmin(ImportExportModelAdmin):
 admin.site.register(models.Event, EventAdmin)
 
 class PublicationAdmin(ImportExportModelAdmin):
-    list_display = ("title","publication_type","ncard_publication","year","journal","journal_ISSN","volume","page_start","page_end","open_access_status","doi","electronic_ISBN","print_ISBN","abstract","citation","source_ID")
+    list_display = ("title","publication_type","ncard_publication","year","journal","journal_ISSN","volume","issue","page_start","page_end","open_access_status","doi","electronic_ISBN","print_ISBN","citation")
     resource_classes = [PublicationResource]
     pass
 admin.site.register(models.Publication, PublicationAdmin)
