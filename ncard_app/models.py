@@ -247,7 +247,7 @@ class Publication(models.Model):
 class Grant(models.Model):
     class GrantStatus(models.IntegerChoices):
         SUBMITTED = 1, 'Application submitted'
-        UNSUCCESSFUL = 2, 'Grant unsuccessful'
+        UNSUCCESSFUL = 2, 'Unsuccessful'
         CURRENT = 3, 'Current'
         COMPLETE = 4, 'Complete'        
 
