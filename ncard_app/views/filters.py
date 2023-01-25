@@ -16,7 +16,7 @@ class PersonFilter(django_filters.FilterSet):
         return models.Person.objects.all().filter(
 
             Q(surname__icontains=value) | Q(given_name__icontains=value) | Q(title__icontains=value) | Q(
-                organisation_primary__name__icontains=value) | Q(project__icontains=value)
+                organisation_primary__name__icontains=value) | Q(project__name__icontains=value)
 
         )
 
@@ -100,7 +100,8 @@ class GrantFilter(django_filters.FilterSet):
     def universal_search(self, queryset, name, value):
         return models.Grant.objects.all().filter(
 
-            Q(reference__icontains=value) | Q(title__icontains=value) | Q(project__name__icontains=value)
+            Q(grant_reference__icontains=value) | Q(roap_reference__icontains=value) | Q(title__icontains=value) |
+            Q(project__name__icontains=value)
 
         )
 
