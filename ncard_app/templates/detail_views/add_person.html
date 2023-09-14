@@ -4,13 +4,53 @@
 {% block title %}Add Person{% endblock %}
 
 {% block content %}
-    <a class="btn btn-close close-btn" href="{% url 'list-people' %}"></a> 
+    <a class="btn btn-close close-btn" href="{% url 'list-people' %}"></a>
     <h1 class="ncard-dark-green">Add Person</h1><br>
     <div class="form-margin">
-        <form action="{% url 'add-person' %}" method=POST>
+        <form action="{% url 'add-person' %}" method=POST id="personForm"
+              data-departments-url-primary="{% url 'ajax_load_departments_primary' %}"
+              data-departments-url-other="{% url 'ajax_load_departments_other' %}"
+              novalidate>
             {% csrf_token %}
             {% crispy form %}
             <input class="btn btn-lg ncard_btn stick" type="submit" value="Add">
         </form>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            $("#id_person-organisation_primary").change(function () {
+                var url = $("#personForm").attr("data-departments-url-primary");  // get the url of the `load_departments` view
+                var primaryorganisationId = $(this).val();  // get the selected organisation ID from the HTML input
+
+                $.ajax({                       // initialize an AJAX request
+                    url: url,                    // set the url of the request (= localhost:8000/ajax/load-departments/)
+                    data: {
+                    'organisation_primary': primaryorganisationId       // add the organisation id to the GET parameters
+                    },
+                    success: function (data) {   // `data` is the return of the `load_departments` view function
+                        console.log(data);
+                        $("#id_person-department_primary").html(data);  // replace the contents of the department input with the data that came from the server
+                    }
+                });
+            });
+        </script>
+        <script>
+            $("#id_person-organisation_other").change(function () {
+                var url = $("#personForm").attr("data-departments-url-other");  // get the url of the `load_departments` view
+                var otherorganisationId = $(this).val();  // get the selected organisation ID from the HTML input
+
+                $.ajax({                       // initialize an AJAX request
+                    url: url,                    // set the url of the request (= localhost:8000/ajax/load-departments/)
+                    data: {
+                    'organisation_other': otherorganisationId       // add the organisation id to the GET parameters
+                    },
+                    success: function (data) {   // `data` is the return of the `load_departments` view function
+                        console.log(data);
+                        $("#id_person-department_other").html(data);  // replace the contents of the department input with the data that came from the server
+                    }
+                });
+            });
+        </script>
     </div>
+
 {% endblock %}

@@ -55,6 +55,21 @@ class OrganisationTable(tables.Table):
             '<a href=' + reverse_lazy("edit-organisation", args=[record.pk]) + ' class="btn btn-sm ncard_btn">Edit</a>')
 
 
+class DepartmentTable(tables.Table):
+    edit = tables.Column('Action',
+                         orderable=False, empty_values=(), exclude_from_export=True)
+    export_formats = get_formats()
+
+    class Meta:
+        model = models.Department
+        exclude = ('id',)
+        attrs = {"class": "table table-striped", "th": {"scope": "col", "class": "col-width-350"}}
+
+    def render_edit(self, record):
+        return mark_safe(
+            '<a href=' + reverse_lazy('edit-department', args=[record.pk]) + ' class="btn btn-sm ncard_btn">Edit</a>')
+
+
 class EventTable(tables.Table):
     edit = tables.Column('Action',
                          orderable=False, empty_values=(), exclude_from_export=True)

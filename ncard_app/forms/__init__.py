@@ -6,3 +6,4 @@ from .project_form import *
 from .grant_form import *
 from .publication_form import *
 from .student_form import *
+from .department_form import *

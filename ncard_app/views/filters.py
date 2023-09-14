@@ -138,3 +138,20 @@ class StudentFilter(django_filters.FilterSet):
                 qs.add(Q(student_type=index), Q.OR)
     
         return models.Students.objects.all().filter(qs)
+
+class DepartmentFilter(django_filters.FilterSet):
+    query = django_filters.CharFilter(method='universal_search',
+                                      label="name, org")
+
+    class Meta:
+        model = models.Department
+        fields = {}
+
+    def universal_search(self, queryset, name, value):
+        qs = Q(name__icontains=value)
+
+        for index, choice_name in models.Department.DepartmentType.choices:
+            if value.lower() in choice_name.lower():
+                qs.add(Q(department_type=index), Q.OR)
+
+        return models.Department.objects.all().filter(qs)

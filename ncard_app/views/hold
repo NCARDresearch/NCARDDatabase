@@ -1,0 +1,14 @@
+class DepartmentCreateView(CreateView):
+    template_name = "detail_views/add_department.html"
+    form_class = forms.DepartmentForm
+
+    def get_success_url(self):
+        return reverse('list-departments')
+
+class DepartmentUpdateView(UpdateView):
+    template_name = 'detail_views/department.html'
+    model = models.Department
+    form_class = forms.DepartmentForm
+
+    def get_success_url(self):
+        return reverse('list-departments')

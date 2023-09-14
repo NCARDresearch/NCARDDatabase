@@ -8,7 +8,7 @@ from ncard_app.views import tables_class
 from ncard_app.views import filters
 
 
-class FilteredPersonListView(ExportMixin,SingleTableMixin, FilterView):
+class FilteredPersonListView(ExportMixin, SingleTableMixin, FilterView):
     filter = None
     table_class = tables_class.PersonTable
     model = models.Person
@@ -23,13 +23,13 @@ class FilteredPersonListView(ExportMixin,SingleTableMixin, FilterView):
         return self.filter.qs
 
 
-class FilteredAwardListView(ExportMixin,SingleTableMixin,FilterView):
+class FilteredAwardListView(ExportMixin, SingleTableMixin, FilterView):
     filter = None
     table_class = tables_class.AwardTable
     model = models.Award
     template_name = "tables/awards.html"
     filterset_class = filters.AwardFilter
-    export_name="Award"
+    export_name = "Award"
     paginate_by = 10
 
     def get_queryset(self, **kwargs):
@@ -38,7 +38,7 @@ class FilteredAwardListView(ExportMixin,SingleTableMixin,FilterView):
         return self.filter.qs
 
 
-class FilteredOrganisationListView(ExportMixin,SingleTableMixin,FilterView):
+class FilteredOrganisationListView(ExportMixin, SingleTableMixin, FilterView):
     filter = None
     table_class = tables_class.OrganisationTable
     model = models.Organisation
@@ -53,7 +53,22 @@ class FilteredOrganisationListView(ExportMixin,SingleTableMixin,FilterView):
         return self.filter.qs
 
 
-class FilteredEventsListView(ExportMixin,SingleTableMixin,FilterView):
+class FilteredDepartmentListView(ExportMixin, SingleTableMixin, FilterView):
+    filter = None
+    table_class = tables_class.DepartmentTable
+    model = models.Department
+    template_name = "tables/department.html"
+    filterset_class = filters.DepartmentFilter
+    export_name = "Department"
+    paginate_by = 10
+
+    def get_queryset(self, **kwargs):
+        qs = models.Department.objects.all().order_by('id')
+        self.filter = self.filterset_class(self.request.GET, queryset=qs)
+        return self.filter.qs
+
+
+class FilteredEventsListView(ExportMixin, SingleTableMixin, FilterView):
     filter = None
     table_class = tables_class.EventTable
     model = models.Event
@@ -68,7 +83,7 @@ class FilteredEventsListView(ExportMixin,SingleTableMixin,FilterView):
         return self.filter.qs
 
 
-class FilteredProjectListView(ExportMixin,SingleTableMixin,FilterView):
+class FilteredProjectListView(ExportMixin, SingleTableMixin, FilterView):
     filter = None
     table_class = tables_class.ProjectTable
     model = models.Project
@@ -83,7 +98,7 @@ class FilteredProjectListView(ExportMixin,SingleTableMixin,FilterView):
         return self.filter.qs
 
 
-class FilteredGrantListView(ExportMixin,SingleTableMixin,FilterView):
+class FilteredGrantListView(ExportMixin, SingleTableMixin, FilterView):
     filter = None
     table_class = tables_class.GrantTable
     model = models.Grant
@@ -98,7 +113,7 @@ class FilteredGrantListView(ExportMixin,SingleTableMixin,FilterView):
         return self.filter.qs
 
 
-class FilteredPublicationListView(ExportMixin,SingleTableMixin,FilterView):
+class FilteredPublicationListView(ExportMixin, SingleTableMixin, FilterView):
     filter = None
     table_class = tables_class.PublicationTable
     model = models.Publication
@@ -113,7 +128,7 @@ class FilteredPublicationListView(ExportMixin,SingleTableMixin,FilterView):
         return self.filter.qs
 
 
-class FilteredStudentListView(ExportMixin,SingleTableMixin,FilterView):
+class FilteredStudentListView(ExportMixin, SingleTableMixin, FilterView):
     filter = None
     table_class = tables_class.StudentTable
     model = models.Students

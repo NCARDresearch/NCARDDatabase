@@ -1,9 +1,11 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, inlineformset_factory
 from ncard_app import models
+from ncard_app.forms import department_form
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, HTML, Field
 from crispy_forms.bootstrap import Tab, TabHolder
+
 
 class OrganisationForm(ModelForm):
     class Meta:
@@ -25,5 +27,5 @@ class OrganisationForm(ModelForm):
                 Column('phone', css_class='col-md-3 mb-0'),
                 Column('website', css_class='col-md-6 mb-0'),
                 Column('twitter_handle', css_class='col-md-3 mb-0'),
-             ),
+            ),
         )

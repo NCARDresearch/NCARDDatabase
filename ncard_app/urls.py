@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from ncard_app import views
 from ncard_app.views.decorators import login_required
 from django.contrib.auth import views as auth_views
@@ -11,12 +11,22 @@ urlpatterns = [
     path('tables/people/', login_required(views.FilteredPersonListView.as_view()), name="list-people"),
     path('tables/people/add/', login_required(views.PersonCreateView.as_view()), name="add-person"),
     path('tables/people/<int:pk>/', login_required(views.PersonUpdateView.as_view()), name="edit-person"),
+    path('tables/people/ajax/load-departments-primary/', views.load_departments_primary,
+         name='ajax_load_departments_primary'),
+    path('tables/people/ajax/load-departments-other/', views.load_departments_other,
+         name='ajax_load_departments_other'),
 
-    path('tables/organisations/', login_required(views.FilteredOrganisationListView.as_view()), name="list-organisations"),
+    path('tables/organisations/', login_required(views.FilteredOrganisationListView.as_view()),
+         name="list-organisations"),
     path('tables/organisations/add/', login_required(views.OrganisationCreateView.as_view()), name="add-organisation"),
-    path('tables/organisations/<int:pk>/', login_required(views.OrganisationUpdateView.as_view()), name="edit-organisation"),
+    path('tables/organisations/<int:pk>/', login_required(views.OrganisationUpdateView.as_view()),
+         name="edit-organisation"),
 
-    path('tables/awards/',login_required(views.FilteredAwardListView.as_view()), name="list-awards"),
+    path('tables/departments/', login_required(views.FilteredDepartmentListView.as_view()), name="list-department"),
+    path('tables/departments', login_required(views.DepartmentCreateView.as_view()), name="add-department"),
+    path('tables/departments/<int:pk>/', login_required(views.DepartmentUpdateView.as_view()), name="edit-department"),
+
+    path('tables/awards/', login_required(views.FilteredAwardListView.as_view()), name="list-awards"),
     path('tables/awards/add/', login_required(views.AwardCreateView.as_view()), name="add-award"),
     path('tables/awards/<int:pk>/', login_required(views.AwardUpdateView.as_view()), name="edit-award"),
 
@@ -34,7 +44,8 @@ urlpatterns = [
 
     path('tables/publications/', login_required(views.FilteredPublicationListView.as_view()), name="list-publications"),
     path('tables/publication/add/', login_required(views.PublicationCreateView.as_view()), name="add-publication"),
-    path('tables/publication/<int:pk>/', login_required(views.PublicationUpdateView.as_view()), name="edit-publication"),
+    path('tables/publication/<int:pk>/', login_required(views.PublicationUpdateView.as_view()),
+         name="edit-publication"),
 
     path('tables/students/', login_required(views.FilteredStudentListView.as_view()), name="list-students"),
     path('tables/student/add/', login_required(views.StudentCreateView.as_view()), name="add-student"),
@@ -44,4 +55,5 @@ urlpatterns = [
     path('query/', views.custom_query, name="custom-query"),
     path('query/schema.json', views.custom_query_schema, name="custom-query-schema"),
     path('query/data.json', views.custom_query_data, name="custom-query-data"),
+
 ]

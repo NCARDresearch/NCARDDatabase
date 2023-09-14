@@ -1,8 +1,28 @@
 from django.views import View
+from crispy_forms.utils import render_crispy_form
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from ncard_app import forms, models
+from django.contrib import messages
+
+
+def load_departments_primary(request):
+    organisation_id = request.GET.get('organisation_primary')
+    departments = models.Department.objects.filter(org=organisation_id).order_by('name')
+    return render(request, 'detail_views/department_dropdown_list_options.html', {'departments': departments})
+
+
+def load_departments_other(request):
+    organisation_id = request.GET.get('organisation_other')
+    departments = models.Department.objects.filter(org=organisation_id).order_by('name')
+    return render(request, 'detail_views/department_dropdown_list_options.html', {'departments': departments})
+
+
+class PersonListView(ListView):
+    model = models.Person
+    context_object_name = 'people'
 
 
 class PersonCreateView(CreateView):
@@ -22,6 +42,12 @@ class PersonUpdateView(UpdateView):
         return reverse('list-people')
 
 
+class OrganisationListView(ListView):
+    model = models.Organisation
+    template_name = "detail_views/list-organisations.html"
+    context_object_name = "orgs"
+
+
 class OrganisationCreateView(CreateView):
     template_name = 'detail_views/add_organisation.html'
     form_class = forms.OrganisationForm
@@ -37,6 +63,23 @@ class OrganisationUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('list-organisations')
+
+
+class DepartmentCreateView(CreateView):
+    template_name = "detail_views/add_department.html"
+    form_class = forms.DepartmentForm
+
+    def get_success_url(self):
+        return reverse('list-departments')
+
+
+class DepartmentUpdateView(UpdateView):
+    template_name = 'detail_views/department.html'
+    model = models.Department
+    form_class = forms.DepartmentForm
+
+    def get_success_url(self):
+        return reverse('list-departments')
 
 
 class AwardCreateView(CreateView):
